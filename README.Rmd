@@ -44,6 +44,8 @@ statistical_power
 
 
 and making plots
+
+
 ```{r,echo=FALSE}
 set.seed(2022)
 control_group <- rnorm(60, 1, 1)

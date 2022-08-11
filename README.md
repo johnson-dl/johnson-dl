@@ -26,8 +26,9 @@ for(i in 1:n_sims){
 
 statistical_power <- mean(p_vals < .05)
 statistical_power
-#> [1] 0.78
+#> [1] 0.79
 ```
 
 and making plots
+
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
