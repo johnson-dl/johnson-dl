@@ -16,14 +16,15 @@ theme_set(theme_light())
 ```
 
 
-# johnson-dl
+# Hi, I'm Devin 
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-Hi, I'm Devin ... I work in Data Science and Research Psychology. I'm excited about learning and teaching all things programming, statistics. I work mostly in R but am comfortable with Python and enjoy working in SQL.
+I work in Data Science and Research Psychology. I'm excited about learning and teaching all things programming, statistics. I work mostly in R but am comfortable with Python and enjoy working in SQL.
 
 
+I like to write code - mostly in R
 ```{r}
 #Simulation program 
 set.seed(123)
@@ -43,11 +44,7 @@ power
 
 
 
-
-
-
-
-
+I'm also passionate about good science communication and finding the most efficient ways to communicate to other data professionals as well as non-techincal data consumers
 ```{r,echo=FALSE}
 set.seed(456)
 control_group <- rnorm(15, 1,.5)
