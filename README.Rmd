@@ -26,7 +26,7 @@ I work in Data Science and Research Psychology. I'm excited about learning and t
 
 I like to write code - mostly in R
 ```{r}
-#Simulation program 
+#Simulation for power analysis
 set.seed(123)
 n_sims <- 100
 
@@ -38,8 +38,8 @@ for(i in 1:n_sims){
   p_vals[i] <- t.test(control_group, experimental_group, var.equal = TRUE, conf.int = .95)$p.value
 }
 
-power <- mean(p_vals < .05)
-power
+statistical_power <- mean(p_vals < .05)
+statistical_power
 ```
 
 
