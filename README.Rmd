@@ -1,0 +1,81 @@
+---
+output: github_document
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+theme_set(theme_light())
+```
+
+
+# johnson-dl
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Hi, I'm Devin ... I work in Data Science and Research Psychology. I'm excited about learning and teaching all things programming, statistics. I work mostly in R but am comfortable with Python and enjoy working in SQL.
+
+
+```{r}
+#Simulation program 
+set.seed(123)
+n_sims <- 100
+
+p_vals <- c()
+
+for(i in 1:n_sims){
+  control_group <- rnorm(15, 1,.5)
+  experimental_group <- rnorm(15, 1.5,.5)
+  p_vals[i] <- t.test(control_group, experimental_group, var.equal = TRUE, conf.int = .95)$p.value
+}
+
+power <- mean(p_vals < .05)
+power
+```
+
+
+
+
+
+
+
+
+```{r,echo=FALSE}
+set.seed(456)
+control_group <- rnorm(15, 1,.5)
+experimental_group <- rnorm(15, 1.5,.5)
+
+sim_data <- as.data.frame(control_group)
+sim_data$experimental_group <- experimental_group
+
+sim_data |>
+  pivot_longer(names_to = "group",
+               values_to = "values",
+               cols = c(control_group, experimental_group)) |>
+  group_by(group) |>
+  summarise(mean_response = mean(values),
+            sd = sd(values),
+            n = n(),
+            sem = sd / sqrt(n)) |>
+  ggplot(aes(group, mean_response, fill = group)) +
+  geom_col(width = .6) +
+  geom_errorbar(mapping = aes(ymin = mean_response - sem,
+                              ymax = mean_response + sem),
+                width = .4) +
+  theme(legend.position="none") +
+  labs(caption = "t(26.95) = 2.87, p = 0.008; Cohen's d = 1.05, 95% CI [0.27, 1.81])")
+```
+
+
+```{r,include=FALSE}
+
+report::report(t.test(experimental_group, control_group))
+```
