@@ -29,16 +29,24 @@ I like writing code
 #Simulation for power analysis
 
 #Compute SD for medium effect (Cohen's D of .5)
-solve(0.5, 1)
+sd_for_sim <- solve(0.5, 1)
 
 #Generate number of simulations
 n_sims <- 100
+n_per_group = 80
 
 p_vals <- c()
 
 for(i in 1:n_sims){
-  control_group <- rnorm(60, 0, 2)
-  experimental_group <- rnorm(60, 1, 2)
+  control_group <- rnorm(n = n_per_group, 
+                         mean =  0, 
+                         sd = sd_for_sim)
+  
+  experimental_group <- rnorm(n = n_per_group, 
+                              mean = 1, 
+                              sd = sd_for_sim)
+  
+  
   p_vals[i] <- t.test(control_group, experimental_group)$p.value
 }
 
@@ -53,11 +61,13 @@ and making plots
 
 ```{r,echo=FALSE}
 set.seed(2022)
-control_group <- rnorm(60, 0, 2)
-experimental_group <- rnorm(60, 1, 2)
+control_group <- rnorm(80, 0, 2)
+experimental_group <- rnorm(80, 1, 2)
 
 sim_data <- as.data.frame(control_group)
 sim_data$experimental_group <- experimental_group
+
+report::report(t.test(sim_data$control_group, sim_data$experimental_group))
 
 sim_data |>
   pivot_longer(names_to = "group",
@@ -73,7 +83,10 @@ sim_data |>
   geom_errorbar(mapping = aes(ymin = mean_response - sem,
                               ymax = mean_response + sem),
                 width = .4) +
-  theme(legend.position="none")
+  theme(legend.position="none") +
+  labs(x = "Group",
+       y = "Mean Response", 
+       caption = "t(151.35) = -2.32, p = 0.022; Cohen's d = -0.37, 95% CI [-0.68, -0.05]")
 ```
 
 
