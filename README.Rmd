@@ -27,13 +27,18 @@ I'm a Data Scientist with experience working in academic, private, and non-profi
 I like writing code
 ```{r}
 #Simulation for power analysis
+
+#Compute SD for medium effect (Cohen's D of .5)
+solve(0.5, 1)
+
+#Generate number of simulations
 n_sims <- 100
 
 p_vals <- c()
 
 for(i in 1:n_sims){
-  control_group <- rnorm(60, 1, 1)
-  experimental_group <- rnorm(60, 1.5, 1)
+  control_group <- rnorm(60, 0, 2)
+  experimental_group <- rnorm(60, 1, 2)
   p_vals[i] <- t.test(control_group, experimental_group)$p.value
 }
 
@@ -48,8 +53,8 @@ and making plots
 
 ```{r,echo=FALSE}
 set.seed(2022)
-control_group <- rnorm(60, 1, 1)
-experimental_group <- rnorm(60, 1.5, 1)
+control_group <- rnorm(60, 0, 2)
+experimental_group <- rnorm(60, 1, 2)
 
 sim_data <- as.data.frame(control_group)
 sim_data$experimental_group <- experimental_group
@@ -68,9 +73,7 @@ sim_data |>
   geom_errorbar(mapping = aes(ymin = mean_response - sem,
                               ymax = mean_response + sem),
                 width = .4) +
-  theme(legend.position="none") +
-  labs(caption = "t(112.28) = 3.86, p < .001; 
-                              Cohen's d = 0.70, 95% CI [0.33, 1.07]")
+  theme(legend.position="none")
 ```
 
 
