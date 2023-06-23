@@ -16,7 +16,7 @@ theme_set(theme_light())
 ```
 
 
-# Hi, I'm Devin 
+# Hi, I'm Devin! 
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -31,11 +31,14 @@ I like writing code
 #Compute SD for medium effect (Cohen's D of .5)
 sd_for_sim <- solve(0.5, 1)
 
-#Generate number of simulations
+#Generate number of simulations and n per group
 n_sims <- 100
 n_per_group = 80
 
+#create empty vector of p values
 p_vals <- c()
+
+
 
 for(i in 1:n_sims){
   control_group <- rnorm(n = n_per_group, 
@@ -58,7 +61,6 @@ statistical_power
 
 and making plots
 
-
 ```{r,echo=FALSE}
 set.seed(2022)
 control_group <- rnorm(80, 0, 2)
@@ -67,7 +69,7 @@ experimental_group <- rnorm(80, 1, 2)
 sim_data <- as.data.frame(control_group)
 sim_data$experimental_group <- experimental_group
 
-report::report(t.test(sim_data$control_group, sim_data$experimental_group))
+#report::report(t.test(sim_data$control_group, sim_data$experimental_group))
 
 sim_data |>
   pivot_longer(names_to = "group",
