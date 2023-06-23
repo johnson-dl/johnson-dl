@@ -1,5 +1,5 @@
 
-# Hi, I’m Devin
+# Hi, I’m Devin!
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -14,19 +14,35 @@ I like writing code
 
 ``` r
 #Simulation for power analysis
-n_sims <- 100
 
+#Compute SD for medium effect (Cohen's D of .5)
+sd_for_sim <- solve(0.5, 1)
+
+#Generate number of simulations and n per group
+n_sims <- 100
+n_per_group = 80
+
+#create empty vector of p values
 p_vals <- c()
 
+
+
 for(i in 1:n_sims){
-  control_group <- rnorm(60, 1, 1)
-  experimental_group <- rnorm(60, 1.5, 1)
+  control_group <- rnorm(n = n_per_group, 
+                         mean =  0, 
+                         sd = sd_for_sim)
+  
+  experimental_group <- rnorm(n = n_per_group, 
+                              mean = 1, 
+                              sd = sd_for_sim)
+  
+  
   p_vals[i] <- t.test(control_group, experimental_group)$p.value
 }
 
 statistical_power <- mean(p_vals < .05)
 statistical_power
-#> [1] 0.79
+#> [1] 0.81
 ```
 
 and making plots
